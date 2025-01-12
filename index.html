@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Chatter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Einstellungsmenü -->
+    <div id="settingsModal" class="settings-modal">
+        <div class="settings-content">
+            <h2>Spieleinstellungen</h2>
+            <div class="preview-container">
+                <img id="previewImage" src="images/feelsdankman_daniel.png" alt="Vorschau" class="preview-image">
+            </div>
+            <div class="blur-control">
+                <label for="initialBlurRange">Wähle die Stärke der Unschärfe:</label>
+                <input type="range" id="initialBlurRange" min="0" max="20" value="8" class="blur-slider">
+                <span id="initialBlurValue">8px</span>
+            </div>
+            <div class="difficulty-indicator">
+                <div class="difficulty easy">Leicht</div>
+                <div class="difficulty medium">Mittel</div>
+                <div class="difficulty hard">Schwer</div>
+            </div>
+            <button id="startGame" class="start-button">Spiel starten</button>
+        </div>
+    </div>
+
+    <!-- Hauptspiel -->
+    <div id="gameContainer" class="game-container" style="display: none;">
+        <div class="title-section">
+            <h1>Guess the Chatter!</h1>
+            <img src="https://cdn.7tv.app/emote/01FEDH7HYG0008YQKN8T0JRJZK/4x.webp" class="title-emote" alt="GIGACHAD">
+        </div>
+        <div class="score-container">
+            <div class="score">Punkte: <span id="score">0</span></div>
+            <div class="timer">Zeit: <span id="timer">30</span>s</div>
+        </div>
+        <div class="progress-bar">
+            <div id="progress" class="progress"></div>
+        </div>
+        <div class="character-container">
+            <img id="characterImage" class="character-image blur" src="" alt="Character">
+        </div>
+        <div id="hint" class="hint"></div>
+        <div class="input-container">
+            <input type="text" id="guessInput" placeholder="Name des Chatters..." autocomplete="off">
+            <button onclick="checkGuess()">Raten</button>
+        </div>
+        <div class="hint-container">
+            <button class="hint-button" onclick="showNextHint()">Neuer Hinweis</button>
+            <div class="hint-timer">Nächster Hinweis in: <span id="hintTimer">0</span>s</div>
+        </div>
+    </div>
+
+    <!-- Info Bar -->
+    <div class="info-bar">
+        <div class="chatter-counter">
+            Chatter im Quiz: <span id="chatterCount">51</span>
+        </div>
+        <div class="made-by">
+            Made by <a href="https://www.twitch.tv/derminusdude" target="_blank" class="twitch-link">DerMinusdude</a>
+        </div>
+    </div>
+
+    <!-- Game Over Menü -->
+    <div id="gameOverModal" class="settings-modal" style="display: none;">
+        <div class="settings-content">
+            <h2>Spiel beendet!</h2>
+            <div class="game-over-stats">
+                <div class="final-score">
+                    Deine Punktzahl: <span id="finalScore">0</span>
+                </div>
+                <div class="accuracy">
+                    Genauigkeit: <span id="accuracy">0</span>%
+                </div>
+                <div class="total-guesses">
+                    Gesamt Versuche: <span id="totalGuesses">0</span>
+                </div>
+            </div>
+            <button id="restartGame" class="start-button">Erneut spielen</button>
+        </div>
+    </div>
+
+    <!-- Benachrichtigungsmenü -->
+    <div id="notificationModal" class="notification-modal">
+        <div class="notification-content">
+            <h3>Auf dieser Seite wird Folgendes angezeigt</h3>
+            <p id="notificationMessage"></p>
+            <button id="notificationOk" class="ok-button">Ok</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
