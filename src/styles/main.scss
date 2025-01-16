@@ -1,0 +1,217 @@
+// Variables
+$primary-color: #4CAF50;
+$secondary-color: #2196F3;
+$background-color: #1a1a1a;
+$card-color: #2d2d2d;
+$text-color: #ffffff;
+$font-family: 'Poppins', sans-serif;
+
+// Mixins
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin gradient-text {
+    background: linear-gradient(45deg, $primary-color, $secondary-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+// Reset & Base Styles
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: $font-family;
+}
+
+body {
+    background-color: $background-color;
+    color: $text-color;
+    min-height: 100vh;
+    @include flex-center;
+    padding: 20px;
+}
+
+// Game Container
+.game-container {
+    background-color: $card-color;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    max-width: 800px;
+    width: 100%;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+    }
+}
+
+// Header
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    @include gradient-text;
+    animation: titleGlow 2s ease-in-out infinite;
+}
+
+// Score & Timer
+.score-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.score {
+    font-size: 1.5em;
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    animation: scorePulse 1s ease-in-out infinite;
+}
+
+// Character Image
+.character-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 20px auto;
+}
+
+.character-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: all 0.5s ease;
+    animation: imageFloat 3s ease-in-out infinite;
+
+    &.blur {
+        filter: blur(10px);
+    }
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+.badges {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 6px;
+    z-index: 2;
+
+    img {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+    }
+}
+
+// Hint System
+.hint {
+    background: rgba(33, 150, 243, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border-left: 4px solid $secondary-color;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: rgba(33, 150, 243, 0.2);
+    }
+}
+
+// Input & Buttons
+.input-container {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    color: $text-color;
+    font-size: 1em;
+    transition: all 0.3s ease;
+
+    &:focus {
+        outline: none;
+        background: rgba(255,255,255,0.15);
+        box-shadow: 0 0 0 2px $secondary-color;
+    }
+}
+
+button {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(45deg, $primary-color, $secondary-color);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba($primary-color, 0.3);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+
+    &.hint-button {
+        background: linear-gradient(45deg, #FF9800, #F44336);
+        margin-top: 10px;
+    }
+}
+
+// Progress Bar
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    margin-top: 10px;
+    overflow: hidden;
+
+    .progress {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, $primary-color, $secondary-color);
+        transform-origin: left;
+        transition: transform 0.3s linear;
+    }
+}
+
+// Animations
+@keyframes titleGlow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+@keyframes scorePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes imageFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+} 

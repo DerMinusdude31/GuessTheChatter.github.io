@@ -2,22 +2,22 @@
 const characters = [
     {
         name: "feelsdankman_daniel",
-        image: "images/feelsdankman_daniel.png",
+        image: "./images/feelsdankman_daniel.png",
         hints: ["Chatter", "Hat zwei Badges links", "Spielt gerne Valorant"]
     },
     {
         name: "riooolu",
-        image: "images/riooolu.png",
+        image: "./images/riooolu.png",
         hints: ["Benannt nach einem Pokemon", "Streamer", "Mit coolem Style"]
     },
     {
         name: "Raphibey",
-        image: "images/Raphibey.png",
-        hints: ["Spitzname", "Chatter",]
+        image: "./images/Raphibey.png",
+        hints: ["Spitzname", "Chatter"]
     },
     {
         name: "6FEAT9_",
-        image: "images/6FEAT9_.png",
+        image: "./images/6FEAT9_.png",
         hints: ["Mit anderem Chatter Zusammen", "69", "wenn 2 musiker einen song zusammen rausbringen"]
     },
     {
@@ -283,7 +283,7 @@ const characters = [
     {
         name: "PeepoHappyNox",
         image: "images/PeepoHappyNox.png",
-        hints: ["Ein fröhlicher Frosch", "Dreiteiliger Name", "Endet mit 'Nox'"]
+        hints: ["Ein Frosch", "Dreiteiliger Name", "Enthält 'Happy'"]
     },
     {
         name: "yM4RA",
@@ -371,9 +371,54 @@ const characters = [
         hints: ["Beginnt mit 'Ice'", "Ein männlicher Spitzname", "Endet mit TV"]
     },
     {
-        name: "PeepoHappyNox",
-        image: "images/PeepoHappyNox.png",
-        hints: ["Ein Twitch-Emote", "Dreiteiliger Name", "Enthält 'Happy'"]
+        name: "mikadft",
+        image: "images/mikadft.png",
+        hints: ["Beginnt mit 'mika'", "Endet mit 'dft'", "Sieben Buchstaben"]
+    },
+    {
+        name: "HowToZelfie",
+        image: "images/HowToZelfie.png",
+        hints: ["Englisch-Deutscher Mix", "Tutorial-ähnlicher Name", "Selfie anders geschrieben"]
+    },
+    {
+        name: "V4_NES_sa",
+        image: "images/V4_NES_sa.png",
+        hints: ["Hat zwei Unterstriche", "Enthält eine 4", "Enthält 'NES'"]
+    },
+    {
+        name: "MOMMME",
+        image: "images/MOMMME.png",
+        hints: ["Hat drei M im Namen", "Nur Großbuchstaben", "Fünf Buchstaben"]
+    },
+    {
+        name: "Juzudo",
+        image: "./images/Juzudo.png",
+        hints: ["Klingt wie eine Kampfsportart", "Sechs Buchstaben", "Beginnt mit J"]
+    },
+    {
+        name: "Felikah",
+        image: "./images/Felikah.png",
+        hints: ["Beginnt mit F", "Endet mit 'ah'", "Sieben Buchstaben"]
+    },
+    {
+        name: "sophiezke",
+        image: "images/sophiezke.png",
+        hints: ["Ein weiblicher Name", "Endet mit 'zke'", "Beginnt mit s"]
+    },
+    {
+        name: "LaLunaTV",
+        image: "images/LaLunaTV.png",
+        hints: ["Bedeutet 'Der Mond'", "Endet mit TV", "Spanisches Wort"]
+    },
+    {
+        name: "LevelRatings",
+        image: "images/LevelRatings.png",
+        hints: ["Englische Wörter", "Hat mit Bewertungen zu tun", "Beginnt mit 'Level'"]
+    },
+    {
+        name: "Entenfurz1",
+        image: "./images/Entenfurz1.png",
+        hints: ["Hat was mit einer Ente zu tun", "Enthält eine Zahl", "Ein eher ungewöhnlicher Name"]
     }
 ];
 
@@ -452,8 +497,17 @@ document.getElementById('startGame').addEventListener('click', function() {
     document.getElementById('settingsModal').style.display = 'none';
     document.getElementById('gameContainer').style.display = 'block';
     
+    // Die beiden unteren Buttons ausblenden
+    document.getElementById('bottomButtons').style.display = 'none';
+    
     // Spiel mit gewählter Unschärfe starten
     loadCharacter(currentBlurValue);
+});
+
+// Zurück-Button im Einstellungsmenü
+document.getElementById('settingsBackButton').addEventListener('click', function() {
+    document.getElementById('settingsModal').style.display = 'none';
+    document.getElementById('modeModal').style.display = 'flex';
 });
 
 // Funktion zum Mischen eines Arrays (Fisher-Yates Shuffle)
@@ -557,30 +611,74 @@ function showNextHint() {
 }
 
 function createConfetti() {
-    for (let i = 0; i < 50; i++) {
+    // Konfetti-Farben
+    const colors = ['#4CAF50', '#FF9800', '#2196F3', '#F44336', '#E91E63', '#9C27B0'];
+    
+    // Funktion zum Erstellen eines einzelnen Konfetti-Stücks
+    function createConfettiPiece() {
         const confetti = document.createElement('div');
         confetti.className = 'confetti';
         confetti.style.left = Math.random() * window.innerWidth + 'px';
-        confetti.style.top = '0';
-        confetti.style.background = ['#4CAF50', '#FF9800', '#2196F3', '#F44336'][Math.floor(Math.random() * 4)];
+        confetti.style.top = '-10px';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
         confetti.style.transform = `scale(${Math.random() * 0.5 + 0.5})`;
+        confetti.style.width = Math.random() * 8 + 6 + 'px';
+        confetti.style.height = Math.random() * 8 + 6 + 'px';
         confetti.style.animation = `confetti ${Math.random() * 2 + 1}s linear`;
+        confetti.style.opacity = Math.random() * 0.5 + 0.5;
         document.body.appendChild(confetti);
         
         setTimeout(() => {
             document.body.removeChild(confetti);
         }, 3000);
     }
+
+    // Funktion zum Erstellen eines Funkens
+    function createSparkle() {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        const container = document.querySelector('.character-container');
+        const rect = container.getBoundingClientRect();
+        
+        sparkle.style.left = Math.random() * rect.width + 'px';
+        sparkle.style.top = Math.random() * rect.height + 'px';
+        sparkle.style.animationDelay = Math.random() * 0.8 + 's';
+        container.appendChild(sparkle);
+        
+        setTimeout(() => {
+            container.removeChild(sparkle);
+        }, 1000);
+    }
+
+    // Erstelle mehrere Konfetti-Stücke
+    for (let i = 0; i < 60; i++) {
+        setTimeout(() => createConfettiPiece(), Math.random() * 1000);
+    }
+
+    // Erstelle Funken
+    for (let i = 0; i < 20; i++) {
+        setTimeout(() => createSparkle(), Math.random() * 1000);
+    }
+
+    // Animiere den Punktestand
+    const scoreElement = document.getElementById('score');
+    scoreElement.classList.add('score-animation');
+    setTimeout(() => {
+        scoreElement.classList.remove('score-animation');
+    }, 800);
 }
 
 function showNotification(message) {
-    const modal = document.getElementById('notificationModal');
-    const messageElement = document.getElementById('notificationMessage');
-    messageElement.textContent = message;
-    modal.style.display = 'flex';
-    
-    // Fokus auf den OK-Button setzen
-    document.getElementById('notificationOk').focus();
+    // Nur Benachrichtigungen anzeigen, wenn das Spiel aktiv ist
+    if (document.getElementById('gameContainer').style.display === 'flex') {
+        const modal = document.getElementById('notificationModal');
+        const messageElement = document.getElementById('notificationMessage');
+        messageElement.textContent = message;
+        modal.style.display = 'flex';
+        
+        // Fokus auf den OK-Button setzen
+        document.getElementById('notificationOk').focus();
+    }
 }
 
 function closeNotification() {
@@ -590,6 +688,12 @@ function closeNotification() {
 }
 
 document.getElementById('notificationOk').addEventListener('click', closeNotification);
+
+// Event-Listener für den Zurück-Button
+document.getElementById('notificationBack').addEventListener('click', function() {
+    document.getElementById('notificationModal').style.display = 'none';
+    document.getElementById('modeModal').style.display = 'flex';
+});
 
 // Event Listener für Enter-Taste
 document.addEventListener('keydown', function(e) {
@@ -608,10 +712,11 @@ function checkGuess() {
     if (guess === currentCharacter.name.toLowerCase()) {
         clearInterval(timer);
         score++;
-        correctGuesses++;
         document.getElementById('score').textContent = score;
+        correctGuesses++;
         img.style.filter = 'blur(0px)';
         
+        // Füge die Erfolgsanimation hinzu
         img.classList.add('success-animation');
         createConfetti();
         
@@ -623,6 +728,8 @@ function checkGuess() {
     } else {
         showNotification('Falsch! Versuch es noch einmal!');
     }
+    
+    document.getElementById('guessInput').value = '';
 }
 
 // Event Listener für Enter-Taste
@@ -636,6 +743,9 @@ function showGameOver() {
     clearInterval(timer);
     document.getElementById('gameContainer').style.display = 'none';
     document.getElementById('gameOverModal').style.display = 'flex';
+    
+    // Die beiden unteren Buttons wieder einblenden
+    document.getElementById('bottomButtons').style.display = 'flex';
     
     // Statistiken aktualisieren
     document.getElementById('finalScore').textContent = score;
@@ -663,13 +773,12 @@ document.addEventListener('keydown', function(e) {
 
 function resetGame() {
     score = 0;
-    currentHintIndex = 0;
-    usedCharacters = [];
-    totalGuesses = 0;
-    correctGuesses = 0;
     document.getElementById('score').textContent = '0';
-    document.getElementById('gameOverModal').style.display = 'none';
-    document.getElementById('settingsModal').style.display = 'flex';
+    document.getElementById('gameContainer').style.display = 'none';
+    document.getElementById('modeModal').style.display = 'flex';
+    
+    // Die beiden unteren Buttons wieder einblenden
+    document.getElementById('bottomButtons').style.display = 'flex';
 }
 
 // Event Listener für den Neustart-Button
@@ -683,3 +792,118 @@ document.getElementById('chatterCount').textContent = characters.length;
 
 // Initialisiere den Timer mit 0
 document.getElementById('hintTimer').textContent = '0'; 
+
+document.getElementById('standardMode').addEventListener('click', function() {
+    document.getElementById('modeModal').style.display = 'none';
+    document.getElementById('settingsModal').style.display = 'flex';
+}); 
+
+// Globaler Event-Listener für die Suche
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('chatterSearch');
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const cards = document.getElementById('chatterGrid').children;
+        
+        Array.from(cards).forEach(card => {
+            const chatterName = card.querySelector('span').textContent.toLowerCase();
+            if (chatterName.includes(searchTerm)) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+});
+
+function showChatterList() {
+    const modal = document.getElementById('chatterListModal');
+    modal.style.display = 'flex';
+    
+    const chatterGrid = document.getElementById('chatterGrid');
+    chatterGrid.innerHTML = '';
+    
+    characters.forEach((char, index) => {
+        const card = document.createElement('div');
+        card.style.cssText = `
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.1), rgba(76, 175, 80, 0.1));
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            min-width: 200px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            word-break: break-word;
+            text-align: center;
+            color: white;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        `;
+        
+        card.innerHTML = `
+            <div style="
+                background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(33, 150, 243, 0.1));
+                border: 2px solid rgba(76, 175, 80, 0.3);
+                border-radius: 50%;
+                min-width: 32px;
+                height: 32px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                font-weight: 600;
+                font-size: 0.9em;
+                color: #4CAF50;
+                position: relative;
+                overflow: hidden;
+            ">
+                <div style="
+                    position: absolute;
+                    inset: 0;
+                    background: linear-gradient(45deg, rgba(76, 175, 80, 0.2), rgba(33, 150, 243, 0.2));
+                    opacity: 0.5;
+                "></div>
+                <span style="position: relative; z-index: 1;">${String(index + 1).padStart(2, '0')}</span>
+            </div>
+            <span class="chatter-name">${char.name}</span>
+        `;
+        
+        card.onmouseover = () => {
+            card.style.transform = 'translateY(-5px)';
+            card.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
+            card.style.background = 'linear-gradient(135deg, rgba(33, 150, 243, 0.15), rgba(76, 175, 80, 0.15))';
+        };
+        
+        card.onmouseout = () => {
+            card.style.transform = 'translateY(0)';
+            card.style.boxShadow = 'none';
+            card.style.background = 'linear-gradient(135deg, rgba(33, 150, 243, 0.1), rgba(76, 175, 80, 0.1))';
+        };
+        
+        chatterGrid.appendChild(card);
+    });
+    
+    document.getElementById('totalChatters').textContent = characters.length;
+    
+    // Suchfeld zurücksetzen
+    const searchInput = document.getElementById('chatterSearch');
+    searchInput.value = '';
+    
+    // Event-Listener für die Suche
+    searchInput.oninput = function() {
+        const searchTerm = this.value.toLowerCase();
+        const cards = document.querySelectorAll('#chatterGrid > div');
+        
+        cards.forEach(card => {
+            const chatterName = card.querySelector('.chatter-name').textContent.toLowerCase();
+            if (chatterName.includes(searchTerm)) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    };
+} 
